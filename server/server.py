@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 # app instance
@@ -12,6 +12,20 @@ def return_home():
         'message': "This is by Flask!",
         'tag': ['Flask', 'Nextjs', 'Cors']
     })
+
+
+@app.route('/api/sum', methods=['POST'])
+def sum_values():
+    # Extract data from the request
+    data = request.get_json()
+    value1 = data.get('value1', 0)
+    value2 = data.get('value2', 0)
+    
+    # Calculate the sum
+    result = value1 + value2
+    
+    # Return the result as a JSON response
+    return jsonify({'sum': result})
 
 
 if __name__ == "__main__":
